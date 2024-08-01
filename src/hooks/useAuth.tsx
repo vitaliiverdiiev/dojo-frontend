@@ -8,9 +8,10 @@ import React, {
 import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from './useLocalStorage';
 import { UnknowType } from '@/models/types/UnknownType';
+import { IUser } from '@/models/interfaces/IUser';
 
 interface AuthContextType {
-  user: UnknowType | null;
+  user: IUser | null;
   token: string | null;
   login: (data: UnknowType, token: string) => Promise<void>;
   logout: () => void;
@@ -28,7 +29,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   // Call this function when you want to authenticate the user
   const login = useCallback(
     async (data: UnknowType, token: string) => {
-      setUser(data);
+      setUser(data as IUser);
       setToken(token);
       navigate('/blog-posts');
     },

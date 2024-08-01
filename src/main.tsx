@@ -14,6 +14,7 @@ import { ProtectedRoute } from './components/common/ProtectedRoutes.tsx';
 const queryClient = new QueryClient();
 
 const BlogPosts = lazy(() => import('./pages/blog-posts/BlogPosts.tsx'));
+const BlogPost = lazy(() => import('./pages/blog-post/BlogPost.tsx'));
 const SignUp = lazy(() => import('./pages/sign-up/SignUp.tsx'));
 const SignIn = lazy(() => import('./pages/sign-in/SignIn.tsx'));
 
@@ -31,6 +32,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <BlogPosts />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/blog-posts/:postId',
+        element: (
+          <ProtectedRoute>
+            <BlogPost />
           </ProtectedRoute>
         ),
       },
