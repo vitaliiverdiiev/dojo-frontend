@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const token = localStorage.getItem('token');
 
-console.log({ token });
 // Add a request interceptor
 axios.interceptors.request.use(
   function (config) {

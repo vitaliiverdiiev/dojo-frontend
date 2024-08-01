@@ -1,3 +1,4 @@
+import { Spinner } from '@/components';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -9,7 +10,7 @@ import {
 } from '@/components/ui/card';
 import { IBlogPost } from '@/models/interfaces/IBlogPost';
 import { useBlogPostsQuery } from '@/services/api/queries/useBlogPostsQuery';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export const AddBlogPost = (): ReactElement => {
@@ -18,22 +19,21 @@ export const AddBlogPost = (): ReactElement => {
 
 export default function Page(): ReactElement {
   const { data, isLoading, isError } = useBlogPostsQuery();
+  const [isHekko, setHekko] = useState(false);
 
-  if (isLoading) return <span>Loading...</span>;
+  if (isLoading) return <Spinner />;
   if (isError) return <span>Error</span>;
-
-  console.log({ data });
 
   return (
     <div className="flex flex-col container">
-      <div className="flex items-center justify-between p-4 bg-gray-100">
+      <div className="flex items-center justify-between p-4 bg-gray-100 mt-4">
         <h1>Blog Posts</h1>
         <AddBlogPost />
       </div>
       <div className="pt-4 pb-8 flex flex-col gap-4">
         {data.map((post: IBlogPost) => (
-          <Link to={`/blog-posts/${post.id}`}>
-            <Card key={post.id}>
+          <Link key={post.id} to={`/blog-posts/${post.id}`}>
+            <Card>
               <CardHeader>
                 <CardTitle>{post.title}</CardTitle>
                 <CardDescription>{post.isPublished.toString()}</CardDescription>
@@ -51,7 +51,13 @@ export default function Page(): ReactElement {
           </Link>
         ))}
       </div>
-      <Button>Hekko</Button>
+      {isHekko ? (
+        <div className="w-full h-50 flex justify-center items-center">
+          <Spinner />
+        </div>
+      ) : (
+        <Button onClick={() => setHekko(true)}>Hekko</Button>
+      )}
     </div>
   );
 }

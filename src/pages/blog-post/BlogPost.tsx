@@ -1,8 +1,9 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { Spinner } from '@/components';
 import axios from '@/configs/axios';
 import { IBlogPost } from '@/models/interfaces/IBlogPost';
+import { useQuery } from '@tanstack/react-query';
+import React from 'react';
+import { useParams } from 'react-router-dom';
 
 const fetchBlogPost = async (postId: string) => {
   // Replace this with your actual API call
@@ -17,7 +18,7 @@ const BlogPost: React.FC = () => {
     queryFn: () => fetchBlogPost(postId || '1'),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Spinner />;
   if (error) return <div>Error loading blog post</div>;
 
   return (

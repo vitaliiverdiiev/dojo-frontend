@@ -1,17 +1,54 @@
-import { ReactElement, Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
-import { Outlet } from 'react-router-dom';
-import { AuthProvider, useAuth } from './hooks/useAuth';
-import { Button } from './components/ui/button';
+import { ReactElement, Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import { NavLinkProps, Outlet, NavLink as RouterLink } from "react-router-dom";
+import { Spinner } from "./components";
+import { Button } from "./components/ui/button";
+import { AuthProvider, useAuth } from "./hooks/useAuth";
+import { RoutesEnum } from "./models/enums/RoutesEnum";
+import { cn } from "./utils";
+
+export const NavLink = (props: NavLinkProps) => {
+  return (
+    <RouterLink
+      {...props}
+      className={({ isActive }) =>
+        cn(isActive ? "text-white" : "", props.className)
+      }
+    ></RouterLink>
+  );
+};
 
 export const Layout = (): ReactElement => {
   const { logout, user } = useAuth();
   return (
     <>
-      <header>
-        <div className="container h-[80px] flex justify-between items-center">
+      <header className="sticky top-0 z-50 bg-indigo-300">
+        <div className="container flex h-[80px] items-center justify-between">
           <span className="text-2xl font-bold tracking-[8px]">Dojo</span>
-          {user && (
+          <nav>
+            <ul className="flex gap-4">
+              <li>
+                <NavLink to={RoutesEnum.ABOUT}>About</NavLink>
+              </li>
+              <li>
+                <NavLink to={RoutesEnum.RESUME}>Resume</NavLink>
+              </li>
+              {user && (
+                <>
+                  <li>
+                    <NavLink to={RoutesEnum.BLOG_POSTS}>Blog posts</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to={RoutesEnum.COUNTER}>Counter</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to={RoutesEnum.TODOS}>Todos</NavLink>
+                  </li>
+                </>
+              )}
+            </ul>
+          </nav>
+          {user ? (
             <div className="flex items-center gap-4">
               <div>
                 <span>{user.email}</span>
@@ -20,6 +57,8 @@ export const Layout = (): ReactElement => {
                 Sign out
               </Button>
             </div>
+          ) : (
+            <NavLink to={RoutesEnum.SIGNIN}>Sign in</NavLink>
           )}
         </div>
       </header>
@@ -32,13 +71,13 @@ export const Layout = (): ReactElement => {
 
 function App() {
   return (
-    <AuthProvider>
-      <ErrorBoundary fallback={<div>Something went wrong</div>}>
-        <Suspense fallback={<span>Loading...</span>}>
+    <ErrorBoundary fallback={<div>Something went wrong</div>}>
+      <Suspense fallback={<Spinner />}>
+        <AuthProvider>
           <Layout />
-        </Suspense>
-      </ErrorBoundary>
-    </AuthProvider>
+        </AuthProvider>
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 
