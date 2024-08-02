@@ -47,7 +47,7 @@ export default function Page(): ReactElement {
   function onSubmit(values: z.infer<typeof signInSchema>) {
     mutate(values, {
       onSuccess: (data: { user: UnknowType; accessToken: string }) => {
-        login(data.user, data.token.accessToken);
+        login(data.user, (data as UnknowType).token.accessToken);
       },
       onError: (error) => {
         console.error("Error registering user:", error);
