@@ -1,4 +1,4 @@
-name: Deploy React App to GitHub Pages
+name: "Deploy to GitHub Pages"
 
 on:
   push:
@@ -10,28 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: "21.7.1"
+          node-version: "18"
 
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
-      - name: Build the app
-        run: yarn build
+      - name: Build
+        run: npm run build
 
-      - name: Configure Git
-        run: |
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'actions@github.com'
-
-      - name: Deploy to GitHub Pages
-        run: |
-          yarn global add gh-pages
-          gh-pages -d dist -r https://github.com/vitaliiverdiiev/dojo-frontend.git --user "${{ secrets.GITHUB_TOKEN }}"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
