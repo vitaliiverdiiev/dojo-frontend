@@ -1,14 +1,14 @@
-import React, {
+import { IUser } from "@/models/interfaces/IUser";
+import { UnknowType } from "@/models/types/UnknownType";
+import {
   createContext,
   PropsWithChildren,
   useCallback,
   useContext,
   useMemo,
-} from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useLocalStorage } from './useLocalStorage';
-import { UnknowType } from '@/models/types/UnknownType';
-import { IUser } from '@/models/interfaces/IUser';
+} from "react";
+import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "./useLocalStorage";
 
 interface AuthContextType {
   user: IUser | null;
@@ -22,8 +22,8 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
-  const [user, setUser] = useLocalStorage('user', null);
-  const [token, setToken] = useLocalStorage('token', null);
+  const [user, setUser] = useLocalStorage("user", null);
+  const [token, setToken] = useLocalStorage("token", null);
   const navigate = useNavigate();
 
   // Call this function when you want to authenticate the user
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     async (data: UnknowType, token: string) => {
       setUser(data as IUser);
       setToken(token);
-      navigate('/blog-posts');
+      navigate("/todos");
     },
     [navigate, setUser, setToken],
   );
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const logout = useCallback(() => {
     setUser(null);
     setToken(null);
-    navigate('/', { replace: true });
+    navigate("/", { replace: true });
   }, [navigate, setUser, setToken]);
 
   const getToken = useCallback(() => token, [token]);
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };

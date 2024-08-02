@@ -1,17 +1,4 @@
-import { ReactElement } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -19,10 +6,26 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { useSignInMutation } from '@/services/api/mutations/useSignInMutation';
-import { useAuth } from '@/hooks/useAuth';
-import { UnknowType } from '@/models/types/UnknownType';
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { OrDecorator } from "@/components/ui/or.decorator";
+import { useAuth } from "@/hooks/useAuth";
+import { RoutesEnum } from "@/models/enums/RoutesEnum";
+import { UnknowType } from "@/models/types/UnknownType";
+import { useSignInMutation } from "@/services/api/mutations/useSignInMutation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ReactElement } from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { z } from "zod";
 
 const signInSchema = z.object({
   email: z.string(),
@@ -34,28 +37,26 @@ export default function Page(): ReactElement {
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
 
   const { mutate } = useSignInMutation();
 
   function onSubmit(values: z.infer<typeof signInSchema>) {
-    console.log(values);
-
     mutate(values, {
       onSuccess: (data: { user: UnknowType; accessToken: string }) => {
         login(data.user, data.token.accessToken);
       },
       onError: (error) => {
-        console.error('Error registering user:', error);
+        console.error("Error registering user:", error);
       },
     });
   }
 
   return (
-    <div className="h-full flex items-center justify-center bg-[#5B96A9]">
+    <div className="flex h-full items-center justify-center bg-[#5B96A9]">
       <Card className="w-[400px]">
         <CardHeader className="text-center">
           <CardTitle>Welcome back to Dojo</CardTitle>
@@ -91,9 +92,13 @@ export default function Page(): ReactElement {
                 )}
               />
             </CardContent>
-            <CardFooter>
+            <CardFooter className="flex flex-col gap-y-2">
               <Button type="submit" className="w-full">
                 Sign in
+              </Button>
+              <OrDecorator />
+              <Button asChild variant="link">
+                <Link to={RoutesEnum.SIGNUP}>Sign up</Link>
               </Button>
             </CardFooter>
           </form>
