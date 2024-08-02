@@ -5,6 +5,7 @@ import { Spinner } from "./components";
 import { Button } from "./components/ui/button";
 import { AuthProvider, useAuth } from "./hooks/useAuth";
 import { RoutesEnum } from "./models/enums/RoutesEnum";
+import { useCounterStore } from "./services/store";
 import { cn } from "./utils";
 
 export const NavLink = (props: NavLinkProps) => {
@@ -18,8 +19,15 @@ export const NavLink = (props: NavLinkProps) => {
   );
 };
 
+export const CounterWidget = (): ReactElement => {
+  const { count } = useCounterStore();
+
+  return <span className="text-2xl font-bold">{count}</span>;
+};
+
 export const Layout = (): ReactElement => {
   const { logout, user } = useAuth();
+
   return (
     <>
       <header className="sticky top-0 z-50 bg-indigo-300">
@@ -60,6 +68,7 @@ export const Layout = (): ReactElement => {
           ) : (
             <NavLink to={RoutesEnum.SIGNIN}>Sign in</NavLink>
           )}
+          <CounterWidget />
         </div>
       </header>
       <main className="h-[calc(100%-80px)]">

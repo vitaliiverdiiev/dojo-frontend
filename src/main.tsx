@@ -9,7 +9,7 @@ import "./globals.css";
 import "./index.css";
 import { RoutesEnum } from "./models/enums/RoutesEnum.ts";
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 // public
 const About = lazy(() => import("./pages/about/Page.tsx"));
@@ -20,7 +20,7 @@ const SignIn = lazy(() => import("./pages/sign-in/SignIn.tsx"));
 const BlogPost = lazy(() => import("./pages/blog-post/BlogPost.tsx"));
 const BlogPosts = lazy(() => import("./pages/blog-posts/BlogPosts.tsx"));
 const Counter = lazy(() => import("./pages/counter/Page.tsx"));
-const Todos = lazy(() => import("./pages/todos/Page.tsx"));
+const Todos = lazy(() => import("./pages/todos/TodosPage.tsx"));
 
 const router = createBrowserRouter([
   {
