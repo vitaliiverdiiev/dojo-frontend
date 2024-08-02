@@ -23,7 +23,7 @@ jobs:
       - name: Build Project
         run: yarn build
       - name: Upload artifacts
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v3.0.1
         with:
           name: "github-pages"
           path: build
