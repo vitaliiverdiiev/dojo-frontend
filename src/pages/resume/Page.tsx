@@ -12,10 +12,10 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 export default function Resume(): ReactElement {
   return (
-    <div>
+    <div className="flex h-full justify-center overflow-y-auto">
       <Document
         file={Doc}
-        className="flex justify-center"
+        // className="flex justify-center"
         loading={<Spinner />}
       >
         <Page pageNumber={1} width={1000} />

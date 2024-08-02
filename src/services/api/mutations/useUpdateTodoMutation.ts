@@ -6,6 +6,7 @@ interface UpdateTodoDto {
   title?: string;
   content?: string;
   isCompleted?: boolean;
+  isImportant?: boolean;
 }
 
 const updateTodo = async (updatedTodo: UpdateTodoDto) => {

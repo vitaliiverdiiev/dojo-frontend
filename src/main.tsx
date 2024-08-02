@@ -53,14 +53,14 @@ const router = createBrowserRouter([
             path: RoutesEnum.BLOG_POSTS,
             element: <BlogPosts />,
           },
-          {
-            path: RoutesEnum.BLOG_POSTS + "/:postId",
-            element: <BlogPost />,
-          },
-          {
-            path: RoutesEnum.COUNTER,
-            element: <Counter />,
-          },
+          // {
+          //   path: RoutesEnum.BLOG_POSTS + "/:postId",
+          //   element: <BlogPost />,
+          // },
+          // {
+          //   path: RoutesEnum.COUNTER,
+          //   element: <Counter />,
+          // },
           {
             path: RoutesEnum.TODOS,
             element: <Todos />,

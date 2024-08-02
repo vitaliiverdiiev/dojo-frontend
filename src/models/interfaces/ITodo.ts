@@ -4,9 +4,10 @@ export interface ITodo {
   id: number;
   title?: string;
   content?: string;
-  isCompleted: boolean;
+  isCompleted?: boolean;
+  isImportant?: boolean;
   author: IUser;
-  orderIndex: number;
+  orderIndex?: number;
   createdAt: number;
   updatedAt: number;
 }

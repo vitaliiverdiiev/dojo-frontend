@@ -24,14 +24,8 @@ import { useUpdateTodoMutation } from "@/services/api/mutations/useUpdateTodoMut
 import { useTodosQuery } from "@/services/api/queries/useTodosQuery";
 import { cn } from "@/utils";
 import dayjs from "dayjs";
-import { CircleCheckIcon, Trash } from "lucide-react";
+import { CircleAlert, CircleCheckIcon, Trash } from "lucide-react";
 import { ReactElement, useState } from "react";
-
-const dummy = {
-  total: 12,
-  important: 7,
-  completed: 5,
-};
 
 export const Todo = ({
   createdAt,
@@ -39,6 +33,7 @@ export const Todo = ({
   title,
   content,
   isCompleted,
+  isImportant,
   id,
 }: ITodo): ReactElement => {
   const [isOpen, setOpen] = useState(content ? true : false);
@@ -48,12 +43,17 @@ export const Todo = ({
     <Card
       className={cn(
         "cursor-default overflow-hidden",
+
         { ["cursor-pointer"]: content?.length },
         { ["[&_*>*]:text-gray-300"]: isCompleted },
       )}
       onClick={() => (content?.length ? setOpen((prev) => !prev) : false)}
     >
-      <CardHeader className="grid grid-cols-[1fr_auto] bg-yellow-50">
+      <CardHeader
+        className={cn("grid grid-cols-[1fr_auto] bg-gray-50", {
+          ["bg-red-50"]: isImportant,
+        })}
+      >
         <div>
           <CardTitle>{title}</CardTitle>
           <CardDescription className="mt-2 flex gap-4 text-gray-400">
@@ -72,6 +72,23 @@ export const Todo = ({
           </CardDescription>
         </div>
         <div>
+          <Button
+            className={cn({ ["bg-red-50 text-red-700"]: isImportant })}
+            variant="ghost"
+            size="icon"
+            onClick={(e) => {
+              e.stopPropagation();
+              mutate(
+                { id, isImportant: !isImportant },
+                {
+                  onSuccess: () =>
+                    queryClient.invalidateQueries({ queryKey: ["todos"] }),
+                },
+              );
+            }}
+          >
+            <CircleAlert size={18} />
+          </Button>
           <Button
             className={cn({
               ["hover:bg-green-50 hover:text-green-500"]: !isCompleted,

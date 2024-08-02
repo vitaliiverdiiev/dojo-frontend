@@ -26,7 +26,7 @@ export const TodoCreateForm = (): ReactElement => {
     resolver: zodResolver(schema),
     defaultValues: {
       title: "",
-      content: ""
+      content: "",
     },
   });
 
@@ -35,6 +35,7 @@ export const TodoCreateForm = (): ReactElement => {
       onSuccess: (data) => {
         console.log("POSTED!", { data });
         queryClient.invalidateQueries({ queryKey: ["todos"] });
+        form.reset();
       },
       onError: (error) => {
         console.error("Error registering user:", error);

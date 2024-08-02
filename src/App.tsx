@@ -1,6 +1,11 @@
 import { ReactElement, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { NavLinkProps, Outlet, NavLink as RouterLink } from "react-router-dom";
+import {
+  Link,
+  NavLinkProps,
+  Outlet,
+  NavLink as RouterLink,
+} from "react-router-dom";
 import { Spinner } from "./components";
 import { Button } from "./components/ui/button";
 import { AuthProvider, useAuth } from "./hooks/useAuth";
@@ -13,7 +18,7 @@ export const NavLink = (props: NavLinkProps) => {
     <RouterLink
       {...props}
       className={({ isActive }) =>
-        cn(isActive ? "text-white" : "", props.className)
+        cn("text-white", isActive ? "border-b-2" : "", props.className)
       }
     ></RouterLink>
   );
@@ -30,9 +35,11 @@ export const Layout = (): ReactElement => {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-indigo-300">
+      <header className="sticky top-0 z-50 bg-[#02808f] text-[#ebebeb]">
         <div className="container flex h-[80px] items-center justify-between">
-          <span className="text-2xl font-bold tracking-[8px]">Dojo</span>
+          <Link to="/">
+            <span className="text-3xl font-[100] uppercase">Dojo</span>
+          </Link>
           <nav>
             <ul className="flex gap-4">
               <li>
@@ -43,12 +50,12 @@ export const Layout = (): ReactElement => {
               </li>
               {user && (
                 <>
-                  <li>
+                  {/* <li>
                     <NavLink to={RoutesEnum.BLOG_POSTS}>Blog posts</NavLink>
-                  </li>
-                  <li>
+                  </li> */}
+                  {/* <li>
                     <NavLink to={RoutesEnum.COUNTER}>Counter</NavLink>
-                  </li>
+                  </li> */}
                   <li>
                     <NavLink to={RoutesEnum.TODOS}>Todos</NavLink>
                   </li>
@@ -61,14 +68,17 @@ export const Layout = (): ReactElement => {
               <div>
                 <span>{user.email}</span>
               </div>
-              <Button className="ml-auto" variant="outline" onClick={logout}>
+              <Button
+                className="ml-auto text-black"
+                variant="outline"
+                onClick={logout}
+              >
                 Sign out
               </Button>
             </div>
           ) : (
             <NavLink to={RoutesEnum.SIGNIN}>Sign in</NavLink>
           )}
-          <CounterWidget />
         </div>
       </header>
       <main className="h-[calc(100%-80px)]">
