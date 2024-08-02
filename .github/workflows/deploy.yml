@@ -26,6 +26,8 @@ jobs:
         run: yarn
       - name: Build Project
         run: yarn build
+      - name: List files in deploy directory
+        run: ls -R ./dist
       - name: Upload artifact in order to deploy
         uses: actions/upload-artifact@v4.3.5
         with:
