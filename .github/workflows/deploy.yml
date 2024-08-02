@@ -22,11 +22,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
+          cache: "yarn"
       - name: Install Packages
-        run: npm ci
+        run: yarn
       - name: Build
-        run: npm run build
+        run: yarn build
       #- name: Test
       #  run: npm test
       - name: Deploy🚀
