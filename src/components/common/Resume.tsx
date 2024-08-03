@@ -1,8 +1,8 @@
+import ResumePdf from "@/assets/resume.pdf";
 import { ReactElement } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
-import resume from "/resume.pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
@@ -11,7 +11,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 export const Resume = (): ReactElement => {
   return (
-    <Document file={resume}>
+    <Document file={ResumePdf}>
       <Page
         className="m-auto w-fit"
         pageNumber={1}
