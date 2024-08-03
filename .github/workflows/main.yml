@@ -1,27 +1,25 @@
 name: Deploy to main
-  on:
-    push:
-      branch: main
-  jobs:
-    build:
-      runs-on: ubuntu-latest
-
-      steps:
-        - uses: actions/checkout@v4
-        - name: Use Node
-          uses: actions/setup-node@v4
-          with:
-            node-version: 21
-        - name: Install dependencies
-          run: yarn
-
-  deploys:
+on: push
+jobs:
+  build:
     runs-on: ubuntu-latest
-    needs: ["build"]
+
     steps:
-      - uses: actions/checkout@4
-      - uses: akjileshns/heroku-deploy@3.12.12
+      - uses: actions/checkout@v4
+      - name: Use Node
+        uses: actions/setup-node@v4
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "dojo-frontend"
-          heroku_email: "vitaliiverdiiev@gmail.com"
+          node-version: 21
+      - name: Install dependencies
+        run: yarn
+
+deploys:
+  runs-on: ubuntu-latest
+  needs: ["build"]
+  steps:
+    - uses: actions/checkout@4
+    - uses: akjileshns/heroku-deploy@3.12.12
+      with:
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: "dojo-frontend"
+        heroku_email: "vitaliiverdiiev@gmail.com"
