@@ -16,11 +16,11 @@ export default function Page(): ReactElement {
           </div>
           <div className="mt-8 text-wrap text-xl">
             <p>
-              The purpurse of this website is exclusivley to show up my
-              knowladges and abilities. Since all the projects I worked before
-              covered with NDA and you can really use the products without
-              contacting the respective team first. So, please check, and
-              contact me if you've got some sort of job for me.
+              The purpose of this website is exclusively to showcase my
+              knowledge and abilities. Since all the projects I have worked on
+              are covered by NDAs and cannot be used without contacting the
+              respective team first, please review my work and contact me if you
+              have any job opportunities.
             </p>
           </div>
         </div>
