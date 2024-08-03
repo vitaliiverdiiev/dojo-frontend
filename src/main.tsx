@@ -79,7 +79,7 @@ const router = createBrowserRouter(
       ],
     },
   ],
-  { basename: "/dojo-frontend" },
+  { basename: import.meta.env.BASE_URL },
 );
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
