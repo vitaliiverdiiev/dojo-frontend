@@ -26,58 +26,61 @@ const SignIn = lazy(() => import("./pages/sign-in/SignIn.tsx"));
 // const Counter = lazy(() => import("./pages/counter/Page.tsx"));
 const Todos = lazy(() => import("./pages/todos/TodosPage.tsx"));
 
-const router = createBrowserRouter([
-  {
-    element: <App />,
-    loader: () => <Spinner />,
-    errorElement: <h1>Oops, 404 goes...</h1>,
+const router = createBrowserRouter(
+  [
+    {
+      element: <App />,
+      loader: () => <Spinner />,
+      errorElement: <h1>Oops, 404 goes...</h1>,
 
-    children: [
-      {
-        path: "/",
-        element: <Navigate to={RoutesEnum.TODOS} replace={true} />,
-      },
-      {
-        path: RoutesEnum.ABOUT,
-        element: <About />,
-      },
-      {
-        path: RoutesEnum.RESUME,
-        element: <Resume />,
-      },
-      {
-        path: RoutesEnum.SIGNIN,
-        element: <SignIn />,
-      },
-      {
-        path: RoutesEnum.SIGNUP,
-        element: <SignUp />,
-      },
-      {
-        path: "/",
-        element: <ProtectedRoute />,
-        children: [
-          // {
-          //   path: RoutesEnum.BLOG_POSTS,
-          //   element: <BlogPosts />,
-          // },
-          // {
-          //   path: RoutesEnum.BLOG_POSTS + "/:postId",
-          //   element: <BlogPost />,
-          // },
-          // {
-          //   path: RoutesEnum.COUNTER,
-          //   element: <Counter />,
-          // },
-          {
-            path: RoutesEnum.TODOS,
-            element: <Todos />,
-          },
-        ],
-      },
-    ],
-  },
-]);
+      children: [
+        {
+          path: "/",
+          element: <Navigate to={RoutesEnum.TODOS} replace={true} />,
+        },
+        {
+          path: RoutesEnum.ABOUT,
+          element: <About />,
+        },
+        {
+          path: RoutesEnum.RESUME,
+          element: <Resume />,
+        },
+        {
+          path: RoutesEnum.SIGNIN,
+          element: <SignIn />,
+        },
+        {
+          path: RoutesEnum.SIGNUP,
+          element: <SignUp />,
+        },
+        {
+          path: "/",
+          element: <ProtectedRoute />,
+          children: [
+            // {
+            //   path: RoutesEnum.BLOG_POSTS,
+            //   element: <BlogPosts />,
+            // },
+            // {
+            //   path: RoutesEnum.BLOG_POSTS + "/:postId",
+            //   element: <BlogPost />,
+            // },
+            // {
+            //   path: RoutesEnum.COUNTER,
+            //   element: <Counter />,
+            // },
+            {
+              path: RoutesEnum.TODOS,
+              element: <Todos />,
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  { basename: "/dojo-frontend" },
+);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
