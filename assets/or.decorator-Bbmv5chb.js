@@ -1,1 +1,0 @@
-import{j as r,q as s}from"./index-D4VFHoT1.js";const e=()=>r.jsxs("div",{className:"grid w-full grid-cols-[1fr_auto_1fr] items-center gap-4",children:[r.jsx(s,{}),r.jsx("span",{children:"or"}),r.jsx(s,{})]});export{e as O};
