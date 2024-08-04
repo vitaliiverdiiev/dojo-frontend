@@ -6,7 +6,7 @@ const baseURL = import.meta.env.VITE_API_URL;
 console.log({ baseURL });
 
 const axios = axiosClient.create({
-  baseURL,
+  baseURL: "https://dojo-docker-be-9b4ef2803ceb.herokuapp.com",
   timeout: 1000,
   headers: {
     Authorization: "Bearer " + JSON.parse(token),
