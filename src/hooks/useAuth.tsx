@@ -1,3 +1,4 @@
+import { queryClient } from "@/main";
 import { IUser } from "@/models/interfaces/IUser";
 import { UnknowType } from "@/models/types/UnknownType";
 import {
@@ -41,6 +42,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     setUser(null);
     setToken(null);
     navigate("/", { replace: true });
+    queryClient.invalidateQueries({ queryKey: ["todos"] });
   }, [navigate, setUser, setToken]);
 
   const getToken = useCallback(() => token, [token]);

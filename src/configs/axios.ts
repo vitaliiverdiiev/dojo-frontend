@@ -8,7 +8,7 @@ axios.interceptors.request.use(
     // Do something before request is sent
     config.headers.Authorization = `Bearer ${JSON.parse(token as string)}`;
     // OR config.headers.common['Authorization'] = `Bearer ${your_token}`;
-    config.baseURL = 'http://localhost:6969/';
+    config.baseURL = import.meta.env.API_URL;
 
     return config;
   },

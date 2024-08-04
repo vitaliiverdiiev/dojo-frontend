@@ -1,5 +1,5 @@
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 interface SignInData {
   email: string;
@@ -7,16 +7,13 @@ interface SignInData {
 }
 
 const signIn = async (data: SignInData) => {
-  const response = await axios.post(
-    'http://localhost:6969/authentication/sign-in',
-    data,
-  );
+  const response = await axios.post("/authentication/sign-in", data);
   return response.data;
 };
 
 export const useSignInMutation = () => {
   return useMutation({
     mutationFn: signIn,
-    mutationKey: ['sign-in'],
+    mutationKey: ["sign-in"],
   });
 };
