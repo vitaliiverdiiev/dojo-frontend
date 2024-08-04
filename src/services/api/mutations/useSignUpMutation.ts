@@ -1,5 +1,5 @@
+import axios from "@/configs/axios";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 
 interface SignUpData {
   email: string;

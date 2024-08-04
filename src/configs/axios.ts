@@ -1,27 +1,13 @@
-import axios from 'axios';
+import axiosClient from "axios";
 
-const token = localStorage.getItem('token');
+const token = localStorage.getItem("token") || "";
 
-// Add a request interceptor
-axios.interceptors.request.use(
-  function (config) {
-    // Do something before request is sent
-    config.headers.Authorization = `Bearer ${JSON.parse(token as string)}`;
-    // OR config.headers.common['Authorization'] = `Bearer ${your_token}`;
-    config.baseURL = import.meta.env.API_URL;
-
-    return config;
+const axios = axiosClient.create({
+  baseURL: import.meta.env.VITE_API_URL,
+  timeout: 1000,
+  headers: {
+    Authorization: "Bearer " + JSON.parse(token),
   },
-  function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-  },
-);
+});
 
-export default {
-  get: axios.get,
-  post: axios.post,
-  put: axios.put,
-  delete: axios.delete,
-  patch: axios.patch,
-};
+export default axios;
