@@ -1,12 +1,12 @@
 import axiosClient from "axios";
 
 const token = localStorage.getItem("token") || "";
-const baseURL = import.meta.env.VITE_API_URL;
+const baseURI = import.meta.env.VITE_API_URI;
 
-console.log({ baseURL });
+console.log({ baseURI });
 
 const axios = axiosClient.create({
-  baseURL: "https://dojo-docker-be-9b4ef2803ceb.herokuapp.com",
+  baseURL: baseURI,
   timeout: 1000,
   headers: {
     Authorization: "Bearer " + JSON.parse(token),
