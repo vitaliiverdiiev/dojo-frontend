@@ -1,9 +1,7 @@
 import axiosClient from "axios";
 
 const token = localStorage.getItem("token") || "";
-const baseURI =
-  import.meta.env.VITE_API_URI ||
-  "https://dojo-docker-be-9b4ef2803ceb.herokuapp.com/";
+const baseURI = import.meta.env.VITE_API_URI;
 
 console.log({ baseURI });
 
